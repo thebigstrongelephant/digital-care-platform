@@ -176,6 +176,18 @@ const HQDashboard = ({ setCurrentView }) => {
               <div className="absolute -top-1 right-1 bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-full border border-white z-10 animate-bounce">配置</div>
               <span className="text-xs font-bold text-[#E63F59]">核销门店配置</span>
             </div>
+
+            {/* 置灰按钮：核销商户号管理 */}
+            <div className="flex flex-col items-center cursor-not-allowed opacity-40">
+              <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mb-2"><ShieldCheck className="text-gray-400" size={24} /></div>
+              <span className="text-xs text-gray-400 text-center leading-tight">核销商户号管理</span>
+            </div>
+
+            {/* 置灰按钮：品牌关爱主页管理 */}
+            <div className="flex flex-col items-center cursor-not-allowed opacity-40">
+              <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mb-2"><HeartHandshake className="text-gray-400" size={24} /></div>
+              <span className="text-xs text-gray-400 text-center leading-tight">品牌关爱主页管理</span>
+            </div>
           </div>
         </div>
       </div>
