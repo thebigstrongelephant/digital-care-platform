@@ -9,3 +9,15 @@ body {
   width: 100%;
   min-height: 100svh;
 }
+
+@media (min-width: 640px) {
+  body {
+    background-color: #f0f2f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #root {
+    min-height: auto;
+  }
+}

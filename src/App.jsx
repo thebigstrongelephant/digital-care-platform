@@ -671,7 +671,7 @@ const App = () => {
   `;
 
   return (
-    <div className="w-full max-w-md mx-auto bg-gray-100 min-h-screen shadow-2xl relative sm:rounded-3xl sm:h-[850px] sm:my-8 sm:border-8 border-gray-900 overflow-hidden flex flex-col">
+    <div className="w-full max-w-[390px] mx-auto bg-gray-100 min-h-screen shadow-2xl relative sm:rounded-[2.5rem] sm:min-h-0 sm:h-[calc(100vh-4rem)] sm:max-h-[844px] sm:my-8 sm:border-[10px] border-gray-900 overflow-hidden flex flex-col">
       <style dangerouslySetInnerHTML={{ __html: globalCss }} />
       
       <div className="flex-1 overflow-y-auto hide-scrollbar relative">
