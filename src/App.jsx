@@ -4,7 +4,8 @@ import {
   ChevronRight, ChevronLeft, FileSpreadsheet, Plus, MapPin, 
   CheckCircle2, ShieldCheck, Map, Loader2,
   HeartHandshake, LogOut, ScanLine, ArrowRightLeft, Heart,
-  UploadCloud, FileText, X
+  UploadCloud, FileText, X, Download, TrendingUp, 
+  CalendarDays, Building2, Activity, BarChart3, Droplets, Coffee
 } from 'lucide-react';
 
 // --- 1. 登录门户组件 ---
@@ -118,36 +119,34 @@ const HQDashboard = ({ setCurrentView }) => {
               <div className="text-xs text-gray-400">超级管理员</div>
             </div>
           </div>
-          <button className="bg-red-50 text-red-500 px-4 py-1.5 rounded-full text-xs font-bold border border-red-100">
+          <button onClick={() => setCurrentView('HQ_REPORT')} className="bg-red-50 text-red-500 px-4 py-1.5 rounded-full text-xs font-bold border border-red-100 active:bg-red-100 transition">
             详细报表
           </button>
         </div>
 
         {/* 核心数据展示 */}
-        <div className="grid grid-cols-3 gap-3 mb-6">
+        <div className="grid grid-cols-3 gap-3 mb-3">
           <div className="bg-white border border-gray-100 shadow-sm rounded-xl p-3 flex flex-col justify-center">
-            <div className="text-gray-500 text-[11px] mb-1 font-medium">关联活动数</div>
-            <div className="font-extrabold text-gray-800 text-2xl">12</div>
+            <div className="text-gray-500 text-[11px] mb-1 font-medium flex items-center gap-1"><Activity size={12} className="text-[#E63F59]" />参与活动</div>
+            <div className="font-extrabold text-gray-800 text-2xl">5 <span className="text-xs text-gray-400 font-normal">个</span></div>
           </div>
           <div className="bg-white border border-gray-100 shadow-sm rounded-xl p-3 flex flex-col justify-center">
-            <div className="text-gray-500 text-[11px] mb-1 font-medium">累计核销次数</div>
-            <div className="font-extrabold text-gray-800 text-2xl">856</div>
+            <div className="text-gray-500 text-[11px] mb-1 font-medium flex items-center gap-1"><TrendingUp size={12} className="text-blue-500" />累计核销</div>
+            <div className="font-extrabold text-gray-800 text-2xl">856 <span className="text-xs text-gray-400 font-normal">次</span></div>
           </div>
           <div className="bg-white border border-gray-100 shadow-sm rounded-xl p-3 flex flex-col justify-center">
-            <div className="text-gray-500 text-[11px] mb-1 font-medium">累计核销卡数</div>
-            <div className="font-extrabold text-gray-800 text-2xl">342</div>
+            <div className="text-gray-500 text-[11px] mb-1 font-medium flex items-center gap-1"><CalendarDays size={12} className="text-orange-500" />当日核销</div>
+            <div className="font-extrabold text-[#E63F59] text-2xl">23 <span className="text-xs text-gray-400 font-normal">次</span></div>
           </div>
+        </div>
+        <div className="grid grid-cols-2 gap-3 mb-6">
           <div className="bg-blue-50/60 border border-blue-100 rounded-xl p-3">
-            <div className="text-gray-500 text-xs mb-1 flex items-center font-medium"><span className="text-gray-400 mr-0.5">￥</span>累计核销金额</div>
-            <div className="font-bold text-gray-800 text-lg">12,500.00</div>
+            <div className="text-gray-500 text-xs mb-1 flex items-center font-medium"><Building2 size={12} className="text-blue-500 mr-1" />覆盖门店数</div>
+            <div className="font-bold text-gray-800 text-xl">12 <span className="text-xs text-gray-400 font-normal">家</span></div>
           </div>
-          <div className="bg-teal-50/60 border border-teal-100 rounded-xl p-3">
-            <div className="text-gray-500 text-xs mb-1 flex items-center font-medium"><span className="text-gray-400 mr-0.5">￥</span>实际核销金额</div>
-            <div className="font-bold text-gray-800 text-lg">12,450.00</div>
-          </div>
-          <div className="bg-red-50/60 border border-red-100 rounded-xl p-3">
-            <div className="text-gray-500 text-xs mb-1 flex items-center font-medium"><span className="text-gray-400 mr-0.5">￥</span>退款金额</div>
-            <div className="font-bold text-gray-800 text-lg">50.00</div>
+          <div className="bg-emerald-50/60 border border-emerald-100 rounded-xl p-3">
+            <div className="text-gray-500 text-xs mb-1 flex items-center font-medium"><CheckCircle2 size={12} className="text-emerald-500 mr-1" />成功核销门店</div>
+            <div className="font-bold text-emerald-700 text-xl">8 <span className="text-xs text-gray-400 font-normal">家</span></div>
           </div>
         </div>
 
@@ -404,7 +403,294 @@ const HQAddSubAccount = ({ setCurrentView, subAccounts, setSubAccounts }) => {
   );
 };
 
-// --- 5. 核销门店：确认门店地址信息组件 ---
+// --- 5. 品牌总店：详细报表页面 ---
+const mockActivities = [
+  { 
+    id: 'act1', name: '助老矿泉水卡', icon: 'water',
+    color: 'blue', bgColor: 'bg-blue-50', borderColor: 'border-blue-100', iconColor: 'text-blue-500',
+    totalVerify: 356, todayVerify: 12, coverStores: 8, activeStores: 6,
+    desc: '为65岁以上老人提供免费矿泉水领取服务',
+    startDate: '2026-01-15', status: '进行中'
+  },
+  { 
+    id: 'act2', name: '环卫工早餐包卡', icon: 'coffee',
+    color: 'orange', bgColor: 'bg-orange-50', borderColor: 'border-orange-100', iconColor: 'text-orange-500',
+    totalVerify: 218, todayVerify: 8, coverStores: 6, activeStores: 5,
+    desc: '为环卫工人提供免费早餐包领取服务',
+    startDate: '2026-02-01', status: '进行中'
+  },
+  { 
+    id: 'act3', name: '残疾人关爱卡', icon: 'heart',
+    color: 'pink', bgColor: 'bg-pink-50', borderColor: 'border-pink-100', iconColor: 'text-pink-500',
+    totalVerify: 142, todayVerify: 3, coverStores: 5, activeStores: 4,
+    desc: '为持证残疾人提供日用品关爱套装领取',
+    startDate: '2026-02-15', status: '进行中'
+  },
+  { 
+    id: 'act4', name: '独居老人送餐卡', icon: 'heart',
+    color: 'red', bgColor: 'bg-red-50', borderColor: 'border-red-100', iconColor: 'text-red-500',
+    totalVerify: 98, todayVerify: 0, coverStores: 4, activeStores: 2,
+    desc: '为社区独居老人提供爱心午餐配送服务',
+    startDate: '2026-03-01', status: '进行中'
+  },
+  { 
+    id: 'act5', name: '困境儿童文具包', icon: 'heart',
+    color: 'purple', bgColor: 'bg-purple-50', borderColor: 'border-purple-100', iconColor: 'text-purple-500',
+    totalVerify: 42, todayVerify: 0, coverStores: 3, activeStores: 1,
+    desc: '为困境儿童提供学习文具套装',
+    startDate: '2026-03-10', status: '进行中'
+  }
+];
+
+const HQReport = ({ setCurrentView, setSelectedActivity }) => {
+  const totalVerify = mockActivities.reduce((s, a) => s + a.totalVerify, 0);
+  const todayVerify = mockActivities.reduce((s, a) => s + a.todayVerify, 0);
+
+  const getIcon = (act) => {
+    if (act.icon === 'water') return <Droplets size={24} className={act.iconColor} />;
+    if (act.icon === 'coffee') return <Coffee size={24} className={act.iconColor} />;
+    return <Heart size={24} className={act.iconColor} />;
+  };
+
+  return (
+    <div className="min-h-full bg-[#F7F8FA] flex flex-col font-sans">
+      <div className="bg-white px-4 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm border-b border-gray-100">
+        <button onClick={() => setCurrentView('HQ_DASHBOARD')} className="p-1 -ml-2 text-gray-600 active:bg-gray-100 rounded-lg"><ChevronLeft size={28} /></button>
+        <h1 className="text-lg font-bold text-gray-800">详细报表</h1>
+        <div className="w-8"></div>
+      </div>
+
+      {/* 汇总数据条 */}
+      <div className="mx-4 mt-4 mb-3 bg-gradient-to-r from-[#E63F59] to-[#FF6B8B] rounded-2xl p-4 text-white shadow-sm">
+        <div className="flex items-center gap-2 mb-3">
+          <BarChart3 size={18} />
+          <span className="font-bold text-sm">数据总览</span>
+        </div>
+        <div className="grid grid-cols-3 gap-3">
+          <div className="bg-white/20 rounded-xl p-2.5 text-center backdrop-blur-sm">
+            <div className="text-white/80 text-[10px] mb-1">活动总数</div>
+            <div className="font-extrabold text-xl">{mockActivities.length}</div>
+          </div>
+          <div className="bg-white/20 rounded-xl p-2.5 text-center backdrop-blur-sm">
+            <div className="text-white/80 text-[10px] mb-1">累计核销</div>
+            <div className="font-extrabold text-xl">{totalVerify}</div>
+          </div>
+          <div className="bg-white/20 rounded-xl p-2.5 text-center backdrop-blur-sm">
+            <div className="text-white/80 text-[10px] mb-1">今日核销</div>
+            <div className="font-extrabold text-xl">{todayVerify}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* 活动卡列表 */}
+      <div className="px-4 flex-1 pb-6">
+        <div className="text-sm font-bold text-gray-500 mb-3 px-1 flex items-center gap-1">
+          <Activity size={14} /> 活动列表（点击查看详情）
+        </div>
+        <div className="space-y-3">
+          {mockActivities.map(act => (
+            <div 
+              key={act.id}
+              onClick={() => {
+                setSelectedActivity(act);
+                setCurrentView('HQ_ACTIVITY_DETAIL');
+              }}
+              className={`bg-white rounded-2xl p-4 shadow-sm border ${act.borderColor} cursor-pointer active:scale-[0.98] transition-all hover:shadow-md`}
+            >
+              <div className="flex items-start gap-3">
+                <div className={`w-12 h-12 ${act.bgColor} rounded-2xl flex items-center justify-center flex-shrink-0`}>
+                  {getIcon(act)}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <h3 className="font-bold text-gray-800 text-[15px] truncate pr-2">{act.name}</h3>
+                    <span className="flex-shrink-0 bg-emerald-50 text-emerald-600 text-[10px] px-2 py-0.5 rounded-full border border-emerald-100 font-bold">{act.status}</span>
+                  </div>
+                  <p className="text-xs text-gray-400 mb-3 line-clamp-1">{act.desc}</p>
+                  <div className="grid grid-cols-4 gap-2">
+                    <div className="text-center">
+                      <div className="text-[10px] text-gray-400">累计核销</div>
+                      <div className="font-bold text-gray-800 text-sm">{act.totalVerify}</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-[10px] text-gray-400">今日核销</div>
+                      <div className="font-bold text-[#E63F59] text-sm">{act.todayVerify}</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-[10px] text-gray-400">覆盖门店</div>
+                      <div className="font-bold text-gray-800 text-sm">{act.coverStores}</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-[10px] text-gray-400">已核销店</div>
+                      <div className="font-bold text-emerald-600 text-sm">{act.activeStores}</div>
+                    </div>
+                  </div>
+                </div>
+                <ChevronRight size={18} className="text-gray-300 mt-3 flex-shrink-0" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- 6. 品牌总店：活动详情页（核销门店数据+导出） ---
+const mockStoreData = {
+  act1: [
+    { storeName: '南山科技园领取点', staffName: '张三', todayCount: 5, totalCount: 86, lastTime: '2026-03-18 14:23', status: 'active' },
+    { storeName: '天府五街35爱心帮帮卡活动', staffName: '李四', todayCount: 3, totalCount: 52, lastTime: '2026-03-18 11:05', status: 'active' },
+    { storeName: '龙华壹方城爱心发放点', staffName: '王五', todayCount: 2, totalCount: 68, lastTime: '2026-03-18 09:30', status: 'active' },
+    { storeName: '福田星河COCO Park', staffName: '赵六', todayCount: 1, totalCount: 45, lastTime: '2026-03-17 16:42', status: 'active' },
+    { storeName: '罗湖万象城志愿者驿站', staffName: '钱七', todayCount: 1, totalCount: 38, lastTime: '2026-03-18 10:15', status: 'active' },
+    { storeName: '宝安西乡关爱驿站', staffName: '孙八', todayCount: 0, totalCount: 42, lastTime: '2026-03-16 15:20', status: 'active' },
+    { storeName: '光明新区服务中心', staffName: '周九', todayCount: 0, totalCount: 18, lastTime: '2026-03-15 11:30', status: 'inactive' },
+    { storeName: '坪山坑梓社区站', staffName: '吴十', todayCount: 0, totalCount: 7, lastTime: '2026-03-10 09:00', status: 'inactive' },
+  ],
+  act2: [
+    { storeName: '南山科技园领取点', staffName: '张三', todayCount: 3, totalCount: 56, lastTime: '2026-03-18 07:15', status: 'active' },
+    { storeName: '福田星河COCO Park', staffName: '赵六', todayCount: 2, totalCount: 48, lastTime: '2026-03-18 06:45', status: 'active' },
+    { storeName: '龙华壹方城爱心发放点', staffName: '王五', todayCount: 2, totalCount: 42, lastTime: '2026-03-18 06:30', status: 'active' },
+    { storeName: '罗湖万象城志愿者驿站', staffName: '钱七', todayCount: 1, totalCount: 38, lastTime: '2026-03-18 07:00', status: 'active' },
+    { storeName: '宝安西乡关爱驿站', staffName: '孙八', todayCount: 0, totalCount: 22, lastTime: '2026-03-17 06:50', status: 'active' },
+    { storeName: '光明新区服务中心', staffName: '周九', todayCount: 0, totalCount: 12, lastTime: '2026-03-14 07:10', status: 'inactive' },
+  ],
+};
+
+const HQActivityDetail = ({ setCurrentView, selectedActivity }) => {
+  const [showExportToast, setShowExportToast] = useState(false);
+  const [sortBy, setSortBy] = useState('totalCount');
+  
+  const act = selectedActivity;
+  const stores = (mockStoreData[act?.id] || mockStoreData.act1).sort((a, b) => b[sortBy] - a[sortBy]);
+
+  const handleExport = () => {
+    setShowExportToast(true);
+    setTimeout(() => setShowExportToast(false), 2000);
+  };
+
+  const getIcon = () => {
+    if (act?.icon === 'water') return <Droplets size={28} className="text-white" />;
+    if (act?.icon === 'coffee') return <Coffee size={28} className="text-white" />;
+    return <Heart size={28} className="text-white" />;
+  };
+
+  return (
+    <div className="min-h-full bg-[#F7F8FA] flex flex-col font-sans">
+      <div className="bg-white px-4 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm border-b border-gray-100">
+        <button onClick={() => setCurrentView('HQ_REPORT')} className="p-1 -ml-2 text-gray-600 active:bg-gray-100 rounded-lg"><ChevronLeft size={28} /></button>
+        <h1 className="text-lg font-bold text-gray-800 truncate px-2">{act?.name || '活动详情'}</h1>
+        <div className="w-8"></div>
+      </div>
+
+      {/* 活动概览卡 */}
+      <div className="mx-4 mt-4 mb-3 bg-gradient-to-br from-[#E63F59] to-[#FF6B8B] rounded-2xl p-4 text-white shadow-sm relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full blur-2xl transform translate-x-1/3 -translate-y-1/3"></div>
+        <div className="flex items-center gap-3 mb-4 relative z-10">
+          <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+            {getIcon()}
+          </div>
+          <div className="flex-1">
+            <h2 className="font-bold text-base">{act?.name}</h2>
+            <p className="text-white/70 text-xs mt-0.5">{act?.desc}</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-4 gap-2 relative z-10">
+          <div className="bg-white/15 rounded-xl p-2 text-center backdrop-blur-sm">
+            <div className="text-white/70 text-[9px]">累计核销</div>
+            <div className="font-extrabold text-lg">{act?.totalVerify}</div>
+          </div>
+          <div className="bg-white/15 rounded-xl p-2 text-center backdrop-blur-sm">
+            <div className="text-white/70 text-[9px]">今日核销</div>
+            <div className="font-extrabold text-lg">{act?.todayVerify}</div>
+          </div>
+          <div className="bg-white/15 rounded-xl p-2 text-center backdrop-blur-sm">
+            <div className="text-white/70 text-[9px]">覆盖门店</div>
+            <div className="font-extrabold text-lg">{act?.coverStores}</div>
+          </div>
+          <div className="bg-white/15 rounded-xl p-2 text-center backdrop-blur-sm">
+            <div className="text-white/70 text-[9px]">已核销店</div>
+            <div className="font-extrabold text-lg">{act?.activeStores}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* 操作栏 */}
+      <div className="mx-4 flex items-center justify-between mb-3">
+        <div className="flex gap-2">
+          <button 
+            onClick={() => setSortBy('totalCount')}
+            className={`text-xs px-3 py-1.5 rounded-full font-bold transition ${sortBy === 'totalCount' ? 'bg-[#E63F59] text-white shadow-sm' : 'bg-white text-gray-500 border border-gray-200'}`}
+          >
+            按累计排序
+          </button>
+          <button 
+            onClick={() => setSortBy('todayCount')}
+            className={`text-xs px-3 py-1.5 rounded-full font-bold transition ${sortBy === 'todayCount' ? 'bg-[#E63F59] text-white shadow-sm' : 'bg-white text-gray-500 border border-gray-200'}`}
+          >
+            按今日排序
+          </button>
+        </div>
+        <button 
+          onClick={handleExport}
+          className="flex items-center gap-1 text-xs bg-white text-[#E63F59] px-3 py-1.5 rounded-full font-bold border border-red-100 active:bg-red-50 transition shadow-sm"
+        >
+          <Download size={12} /> 导出表格
+        </button>
+      </div>
+
+      {/* 门店核销数据列表 */}
+      <div className="px-4 flex-1 pb-6">
+        <div className="space-y-2.5">
+          {stores.map((store, idx) => (
+            <div key={idx} className="bg-white rounded-xl p-3.5 shadow-sm border border-gray-100 relative overflow-hidden">
+              <div className={`absolute top-0 left-0 w-1 h-full ${store.status === 'active' ? 'bg-emerald-500' : 'bg-gray-300'}`}></div>
+              <div className="pl-2.5">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-300 text-xs font-mono w-5">#{idx + 1}</span>
+                    <h4 className="font-bold text-gray-800 text-sm truncate max-w-[180px]">{store.storeName}</h4>
+                  </div>
+                  {store.status === 'active' ? (
+                    <span className="bg-emerald-50 text-emerald-600 text-[9px] px-1.5 py-0.5 rounded border border-emerald-100 font-bold">活跃</span>
+                  ) : (
+                    <span className="bg-gray-50 text-gray-400 text-[9px] px-1.5 py-0.5 rounded border border-gray-100 font-bold">不活跃</span>
+                  )}
+                </div>
+                <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
+                  <span>核销员：{store.staffName}</span>
+                  <span className="text-gray-400">最近：{store.lastTime.split(' ')[0]}</span>
+                </div>
+                <div className="flex gap-3 bg-gray-50 rounded-lg p-2">
+                  <div className="flex-1 text-center">
+                    <div className="text-[10px] text-gray-400">今日核销</div>
+                    <div className={`font-bold text-sm ${store.todayCount > 0 ? 'text-[#E63F59]' : 'text-gray-300'}`}>{store.todayCount}</div>
+                  </div>
+                  <div className="w-px bg-gray-200"></div>
+                  <div className="flex-1 text-center">
+                    <div className="text-[10px] text-gray-400">累计核销</div>
+                    <div className="font-bold text-sm text-gray-800">{store.totalCount}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 导出成功提示 */}
+      {showExportToast && (
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-2xl shadow-xl z-50 flex items-center gap-2 animate-in fade-in slide-in-from-top-4">
+          <CheckCircle2 size={18} className="text-emerald-400" />
+          <span className="text-sm font-bold">表格已导出到文件管理</span>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// --- 7. 核销门店：确认门店地址信息组件 ---
 const StoreActivation = ({ setCurrentView, currentUser, setCurrentUser, setSubAccounts }) => {
   const [checking, setChecking] = useState(false);
   const [verified, setVerified] = useState(false);
@@ -519,7 +805,7 @@ const StoreActivation = ({ setCurrentView, currentUser, setCurrentUser, setSubAc
   );
 };
 
-// --- 6. 核销门店：个人工作台组件 ---
+// --- 8. 核销门店：个人工作台组件 ---
 const StoreDashboard = ({ setCurrentView, currentUser, setCurrentUser, setSubAccounts }) => {
   const [showScanModal, setShowScanModal] = useState(false);
   const [verifyCode, setVerifyCode] = useState('');
@@ -658,6 +944,7 @@ const StoreDashboard = ({ setCurrentView, currentUser, setCurrentUser, setSubAcc
 const App = () => {
   const [currentView, setCurrentView] = useState('LOGIN');
   const [currentUser, setCurrentUser] = useState(null);
+  const [selectedActivity, setSelectedActivity] = useState(null);
 
   const [subAccounts, setSubAccounts] = useState([
     { id: 1, storeName: '南山科技园领取点', address: '南山区科技园科苑路15号', staffName: '张三', phone: '13800001111', status: 'active', verifyCount: 128 },
@@ -677,6 +964,8 @@ const App = () => {
       <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar relative">
         {currentView === 'LOGIN' && <LoginPortal setCurrentView={setCurrentView} subAccounts={subAccounts} setCurrentUser={setCurrentUser} />}
         {currentView === 'HQ_DASHBOARD' && <HQDashboard setCurrentView={setCurrentView} />}
+        {currentView === 'HQ_REPORT' && <HQReport setCurrentView={setCurrentView} setSelectedActivity={setSelectedActivity} />}
+        {currentView === 'HQ_ACTIVITY_DETAIL' && <HQActivityDetail setCurrentView={setCurrentView} selectedActivity={selectedActivity} />}
         {currentView === 'HQ_SUB_ACCOUNTS' && <HQSubAccounts setCurrentView={setCurrentView} subAccounts={subAccounts} setSubAccounts={setSubAccounts} />}
         {currentView === 'HQ_ADD_SUB' && <HQAddSubAccount setCurrentView={setCurrentView} subAccounts={subAccounts} setSubAccounts={setSubAccounts} />}
         {currentView === 'STORE_ACTIVATION' && <StoreActivation setCurrentView={setCurrentView} currentUser={currentUser} setCurrentUser={setCurrentUser} setSubAccounts={setSubAccounts} />}
