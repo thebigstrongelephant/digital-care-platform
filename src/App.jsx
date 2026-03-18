@@ -178,15 +178,15 @@ const HQDashboard = ({ setCurrentView }) => {
             </div>
 
             {/* 置灰按钮：核销商户号管理 */}
-            <div className="flex flex-col items-center cursor-not-allowed opacity-40">
-              <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mb-2"><ShieldCheck className="text-gray-400" size={24} /></div>
-              <span className="text-xs text-gray-400 text-center leading-tight">核销商户号管理</span>
+            <div className="flex flex-col items-center cursor-not-allowed">
+              <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mb-2 opacity-40"><ShieldCheck className="text-gray-400" size={24} /></div>
+              <span className="text-xs text-gray-700 text-center leading-tight">核销商户号管理</span>
             </div>
 
             {/* 置灰按钮：品牌关爱主页管理 */}
-            <div className="flex flex-col items-center cursor-not-allowed opacity-40">
-              <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mb-2"><HeartHandshake className="text-gray-400" size={24} /></div>
-              <span className="text-xs text-gray-400 text-center leading-tight">品牌关爱主页管理</span>
+            <div className="flex flex-col items-center cursor-not-allowed">
+              <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mb-2 opacity-40"><HeartHandshake className="text-gray-400" size={24} /></div>
+              <span className="text-xs text-gray-700 text-center leading-tight">品牌关爱主页管理</span>
             </div>
           </div>
         </div>
