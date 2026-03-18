@@ -958,7 +958,7 @@ const App = () => {
   `;
 
   return (
-    <div className="w-full max-w-[390px] mx-auto bg-gray-100 min-h-screen shadow-2xl relative sm:rounded-[2.5rem] sm:min-h-0 sm:h-[calc(100vh-4rem)] sm:max-h-[844px] sm:my-8 sm:border-[10px] border-gray-900 overflow-hidden flex flex-col">
+    <div className="w-full max-w-[390px] mx-auto bg-gray-100 min-h-screen shadow-2xl relative sm:rounded-[2.5rem] sm:min-h-0 sm:h-[calc(100vh-2rem)] sm:w-[calc((100vh-2rem)*9/19.5)] sm:max-w-[430px] sm:my-0 sm:border-[10px] border-gray-900 overflow-hidden flex flex-col">
       <style dangerouslySetInnerHTML={{ __html: globalCss }} />
       
       <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar relative">
