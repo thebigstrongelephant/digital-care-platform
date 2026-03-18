@@ -31,8 +31,8 @@ const LoginPortal = ({ setCurrentView, subAccounts, setCurrentUser }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F8FA] flex flex-col relative overflow-hidden font-sans">
-      <div className="bg-gradient-to-br from-red-500 via-rose-400 to-pink-300 rounded-b-[3rem] shadow-inner pt-24 pb-8 px-8 text-center text-white">
+    <div className="min-h-full bg-[#F7F8FA] flex flex-col relative overflow-hidden font-sans">
+      <div className="bg-gradient-to-br from-red-500 via-rose-400 to-pink-300 rounded-b-[3rem] shadow-inner pt-16 pb-6 px-8 text-center text-white">
         <div className="w-20 h-20 bg-white rounded-3xl mx-auto flex items-center justify-center mb-6 shadow-xl shadow-red-500/30">
           <HeartHandshake className="text-[#E63F59]" size={40} strokeWidth={1.5} />
         </div>
@@ -40,7 +40,7 @@ const LoginPortal = ({ setCurrentView, subAccounts, setCurrentUser }) => {
         <p className="text-white/80 text-sm">让爱落到实处，让公益更透明</p>
       </div>
 
-      <div className="bg-white mx-6 rounded-3xl shadow-xl p-6 relative z-10 flex-1 mb-10 border border-gray-100">
+      <div className="bg-white mx-6 rounded-3xl shadow-xl p-6 relative z-10 flex-1 mb-6 border border-gray-100">
         <div className="flex bg-gray-100 p-1.5 rounded-2xl mb-8">
           <button 
             className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${loginRole === 'brand' ? 'bg-white text-gray-800 shadow border border-gray-100' : 'text-gray-500 hover:text-gray-700'}`}
@@ -93,7 +93,7 @@ const LoginPortal = ({ setCurrentView, subAccounts, setCurrentUser }) => {
 // --- 2. 品牌总店看板组件 ---
 const HQDashboard = ({ setCurrentView }) => {
   return (
-    <div className="min-h-screen bg-gray-50 font-sans pb-10">
+    <div className="min-h-full bg-gray-50 font-sans pb-6">
       <div className="relative bg-gradient-to-br from-red-500 via-rose-400 to-pink-300 pt-12 pb-24 px-4 overflow-hidden rounded-b-[40px]">
         <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/4"></div>
         <div className="flex justify-between items-center text-white relative z-10 mb-6">
@@ -219,7 +219,7 @@ const HQSubAccounts = ({ setCurrentView, subAccounts, setSubAccounts }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F8FA] flex flex-col font-sans relative">
+    <div className="min-h-full bg-[#F7F8FA] flex flex-col font-sans relative">
       <div className="bg-white px-4 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm border-b border-gray-100">
         <button onClick={() => setCurrentView('HQ_DASHBOARD')} className="p-1 -ml-2 text-gray-600 active:bg-gray-100 rounded-lg"><ChevronLeft size={28} /></button>
         <h1 className="text-lg font-bold text-gray-800">门店子账号管理</h1>
@@ -371,7 +371,7 @@ const HQAddSubAccount = ({ setCurrentView, subAccounts, setSubAccounts }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F8FA] font-sans flex flex-col">
+    <div className="min-h-full bg-[#F7F8FA] font-sans flex flex-col">
       <div className="bg-white px-4 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm border-b border-gray-100">
         <button onClick={() => setCurrentView('HQ_SUB_ACCOUNTS')} className="p-1 -ml-2 text-gray-600 active:bg-gray-100 rounded-lg"><ChevronLeft size={28} /></button>
         <h1 className="text-lg font-bold text-gray-800">录入核销门店 (单条)</h1>
@@ -396,7 +396,7 @@ const HQAddSubAccount = ({ setCurrentView, subAccounts, setSubAccounts }) => {
             <input type="tel" placeholder="该手机号将作为门店端登录凭证" value={newAccount.phone} onChange={e => setNewAccount({...newAccount, phone: e.target.value})} className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 text-sm focus:ring-2 focus:ring-red-100 focus:border-[#E63F59] outline-none font-mono" />
           </div>
         </div>
-        <button onClick={handleSave} className="w-full bg-[#E63F59] text-white rounded-2xl p-4 mt-8 font-bold text-lg shadow-lg shadow-red-200 active:scale-95 transition">
+        <button onClick={handleSave} className="w-full bg-[#E63F59] text-white rounded-2xl p-4 mt-5 font-bold text-lg shadow-lg shadow-red-200 active:scale-95 transition">
           保存并下发权限
         </button>
       </div>
@@ -425,15 +425,15 @@ const StoreActivation = ({ setCurrentView, currentUser, setCurrentUser, setSubAc
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F8FA] font-sans flex flex-col">
+    <div className="min-h-full bg-[#F7F8FA] font-sans flex flex-col">
       <div className="bg-white px-4 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
         <button onClick={() => setCurrentView('LOGIN')} className="p-1 -ml-2 text-gray-600"><ChevronLeft size={28} /></button>
         <h1 className="text-lg font-bold text-gray-800">首次激活核验</h1>
         <div className="w-8"></div>
       </div>
 
-      <div className="p-5 flex-1 flex flex-col">
-        <div className="bg-white rounded-2xl p-6 shadow-sm mb-5 mt-2 border border-gray-100">
+      <div className="p-4 flex-1 flex flex-col">
+        <div className="bg-white rounded-2xl p-5 shadow-sm mb-4 mt-1 border border-gray-100">
           <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
             <ShieldCheck className="text-[#E63F59]" size={32} />
           </div>
@@ -455,7 +455,7 @@ const StoreActivation = ({ setCurrentView, currentUser, setCurrentUser, setSubAc
           </div>
         </div>
 
-        <div className="bg-blue-50/50 rounded-2xl p-5 border border-blue-100 mb-8">
+        <div className="bg-blue-50/50 rounded-2xl p-4 border border-blue-100 mb-4">
            <div className="flex items-center gap-2 mb-2">
              <MapPin className="text-blue-500" size={20} />
              <span className="font-bold text-blue-800 text-lg">门店位置确认</span>
@@ -504,7 +504,7 @@ const StoreActivation = ({ setCurrentView, currentUser, setCurrentUser, setSubAc
           )}
         </div>
 
-        <div className="mt-auto pb-6">
+        <div className="mt-auto pb-4">
           <button 
             onClick={handleEnter}
             className={`w-full rounded-2xl p-4 font-bold text-lg transition-all ${
@@ -538,7 +538,7 @@ const StoreDashboard = ({ setCurrentView, currentUser, setCurrentUser, setSubAcc
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F6F8] relative pb-32 font-sans">
+    <div className="min-h-full bg-[#F5F6F8] relative pb-24 font-sans">
       <div className="bg-gradient-to-br from-[#E63F59] to-[#FF6B8B] pt-14 pb-20 px-5 rounded-b-[2.5rem] shadow-sm">
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-2 text-white">
@@ -588,10 +588,10 @@ const StoreDashboard = ({ setCurrentView, currentUser, setCurrentUser, setSubAcc
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center pb-8 pt-12 bg-gradient-to-t from-white via-white/90 to-transparent pointer-events-none z-20">
+      <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center pb-6 pt-8 bg-gradient-to-t from-white via-white/90 to-transparent pointer-events-none z-20">
         <button 
           onClick={() => setShowScanModal(true)}
-          className="w-9/12 bg-[#E63F59] text-white rounded-full py-5 text-xl font-extrabold shadow-xl shadow-red-500/30 flex items-center justify-center gap-3 pointer-events-auto hover:scale-[1.02] active:scale-95 transition-all ring-4 ring-white"
+          className="w-9/12 bg-[#E63F59] text-white rounded-full py-4 text-lg font-extrabold shadow-xl shadow-red-500/30 flex items-center justify-center gap-3 pointer-events-auto hover:scale-[1.02] active:scale-95 transition-all ring-4 ring-white"
         >
           <ScanLine size={28} /> 扫码核销
         </button>
@@ -674,7 +674,7 @@ const App = () => {
     <div className="w-full max-w-[390px] mx-auto bg-gray-100 min-h-screen shadow-2xl relative sm:rounded-[2.5rem] sm:min-h-0 sm:h-[calc(100vh-4rem)] sm:max-h-[844px] sm:my-8 sm:border-[10px] border-gray-900 overflow-hidden flex flex-col">
       <style dangerouslySetInnerHTML={{ __html: globalCss }} />
       
-      <div className="flex-1 overflow-y-auto hide-scrollbar relative">
+      <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar relative">
         {currentView === 'LOGIN' && <LoginPortal setCurrentView={setCurrentView} subAccounts={subAccounts} setCurrentUser={setCurrentUser} />}
         {currentView === 'HQ_DASHBOARD' && <HQDashboard setCurrentView={setCurrentView} />}
         {currentView === 'HQ_SUB_ACCOUNTS' && <HQSubAccounts setCurrentView={setCurrentView} subAccounts={subAccounts} setSubAccounts={setSubAccounts} />}
