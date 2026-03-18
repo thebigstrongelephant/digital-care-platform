@@ -817,7 +817,173 @@ const StoreActivation = ({ setCurrentView, currentUser, setCurrentUser, setSubAc
   );
 };
 
-// --- 8. 核销门店：个人工作台组件 ---
+// --- 8a. 核销门店：核销记录页 ---
+const mockVerifyRecords = [
+  { id: 1, cardNo: 'CK20260318001', cardType: '助老矿泉水卡', recipientName: '王大爷', recipientId: '****1234', time: '2026-03-18 14:23', status: '成功' },
+  { id: 2, cardNo: 'CK20260318002', cardType: '环卫工早餐包卡', recipientName: '张师傅', recipientId: '****5678', time: '2026-03-18 11:05', status: '成功' },
+  { id: 3, cardNo: 'CK20260317003', cardType: '助老矿泉水卡', recipientName: '李奶奶', recipientId: '****9012', time: '2026-03-17 16:42', status: '成功' },
+  { id: 4, cardNo: 'CK20260317004', cardType: '残疾人关爱卡', recipientName: '刘先生', recipientId: '****3456', time: '2026-03-17 10:15', status: '成功' },
+  { id: 5, cardNo: 'CK20260316005', cardType: '助老矿泉水卡', recipientName: '陈婆婆', recipientId: '****7890', time: '2026-03-16 15:20', status: '成功' },
+  { id: 6, cardNo: 'CK20260316006', cardType: '环卫工早餐包卡', recipientName: '赵师傅', recipientId: '****2345', time: '2026-03-16 07:10', status: '成功' },
+  { id: 7, cardNo: 'CK20260315007', cardType: '独居老人送餐卡', recipientName: '孙大爷', recipientId: '****6789', time: '2026-03-15 11:30', status: '成功' },
+  { id: 8, cardNo: 'CK20260314008', cardType: '助老矿泉水卡', recipientName: '周奶奶', recipientId: '****0123', time: '2026-03-14 09:00', status: '退款' },
+];
+
+const StoreVerifyRecords = ({ setCurrentView }) => {
+  return (
+    <div className="min-h-full bg-[#F7F8FA] flex flex-col font-sans">
+      <div className="bg-white px-4 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm border-b border-gray-100">
+        <button onClick={() => setCurrentView('STORE_DASHBOARD')} className="p-1 -ml-2 text-gray-600 active:bg-gray-100 rounded-lg"><ChevronLeft size={28} /></button>
+        <h1 className="text-lg font-bold text-gray-800">核销记录</h1>
+        <div className="w-8"></div>
+      </div>
+
+      {/* 统计条 */}
+      <div className="mx-4 mt-4 mb-3 bg-gradient-to-r from-blue-500 to-blue-400 rounded-2xl p-4 text-white shadow-sm">
+        <div className="flex items-center gap-2 mb-2">
+          <ClipboardList size={16} />
+          <span className="font-bold text-sm">核销统计</span>
+        </div>
+        <div className="grid grid-cols-3 gap-3">
+          <div className="bg-white/20 rounded-xl p-2 text-center backdrop-blur-sm">
+            <div className="text-white/80 text-[10px]">总核销</div>
+            <div className="font-extrabold text-xl">{mockVerifyRecords.length}</div>
+          </div>
+          <div className="bg-white/20 rounded-xl p-2 text-center backdrop-blur-sm">
+            <div className="text-white/80 text-[10px]">今日</div>
+            <div className="font-extrabold text-xl">2</div>
+          </div>
+          <div className="bg-white/20 rounded-xl p-2 text-center backdrop-blur-sm">
+            <div className="text-white/80 text-[10px]">退款</div>
+            <div className="font-extrabold text-xl">1</div>
+          </div>
+        </div>
+      </div>
+
+      {/* 记录列表 */}
+      <div className="px-4 flex-1 pb-6">
+        <div className="text-sm font-bold text-gray-500 mb-3 px-1">历史核销记录</div>
+        <div className="space-y-2.5">
+          {mockVerifyRecords.map(record => (
+            <div key={record.id} className="bg-white rounded-xl p-3.5 shadow-sm border border-gray-100 relative overflow-hidden">
+              <div className={`absolute top-0 left-0 w-1 h-full ${record.status === '成功' ? 'bg-emerald-500' : 'bg-orange-400'}`}></div>
+              <div className="pl-2.5">
+                <div className="flex items-center justify-between mb-1.5">
+                  <h4 className="font-bold text-gray-800 text-sm">{record.cardType}</h4>
+                  {record.status === '成功' ? (
+                    <span className="bg-emerald-50 text-emerald-600 text-[9px] px-1.5 py-0.5 rounded border border-emerald-100 font-bold">核销成功</span>
+                  ) : (
+                    <span className="bg-orange-50 text-orange-500 text-[9px] px-1.5 py-0.5 rounded border border-orange-100 font-bold">已退款</span>
+                  )}
+                </div>
+                <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
+                  <span>领取人：{record.recipientName}（{record.recipientId}）</span>
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-gray-400 font-mono text-[10px]">{record.cardNo}</span>
+                  <span className="text-gray-400 text-[10px]">{record.time}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- 8b. 核销门店：子账号配置页 ---
+const mockSubAccountList = [
+  { id: 1, name: '李四', phone: '138****1234', role: '核销员', status: '启用', lastLogin: '2026-03-18 14:00' },
+  { id: 2, name: '王五', phone: '139****5678', role: '核销员', status: '启用', lastLogin: '2026-03-17 09:30' },
+  { id: 3, name: '赵六', phone: '137****9012', role: '核销员', status: '停用', lastLogin: '2026-03-10 11:20' },
+];
+
+const StoreSubAccountsMgmt = ({ setCurrentView }) => {
+  const [showAddModal, setShowAddModal] = useState(false);
+
+  return (
+    <div className="min-h-full bg-[#F7F8FA] flex flex-col font-sans">
+      <div className="bg-white px-4 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm border-b border-gray-100">
+        <button onClick={() => setCurrentView('STORE_DASHBOARD')} className="p-1 -ml-2 text-gray-600 active:bg-gray-100 rounded-lg"><ChevronLeft size={28} /></button>
+        <h1 className="text-lg font-bold text-gray-800">子账号配置</h1>
+        <button onClick={() => setShowAddModal(true)} className="p-1 text-[#E63F59] active:bg-red-50 rounded-lg"><Plus size={24} /></button>
+      </div>
+
+      {/* 说明 */}
+      <div className="mx-4 mt-4 mb-3 bg-orange-50 border border-orange-100 rounded-2xl p-3 flex items-start gap-2">
+        <ShieldCheck size={16} className="text-orange-500 flex-shrink-0 mt-0.5" />
+        <p className="text-xs text-orange-700 leading-relaxed">子账号可以使用独立的账号密码登录本门店进行核销操作，便于多人协同工作。</p>
+      </div>
+
+      {/* 账号列表 */}
+      <div className="px-4 flex-1 pb-6">
+        <div className="text-sm font-bold text-gray-500 mb-3 px-1 flex items-center gap-1">
+          <Users size={14} /> 已配置账号（{mockSubAccountList.length}）
+        </div>
+        <div className="space-y-2.5">
+          {mockSubAccountList.map(account => (
+            <div key={account.id} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 relative overflow-hidden">
+              <div className={`absolute top-0 left-0 w-1 h-full ${account.status === '启用' ? 'bg-emerald-500' : 'bg-gray-300'}`}></div>
+              <div className="pl-2.5">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                      <UserCircle size={18} className="text-gray-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-800 text-sm">{account.name}</h4>
+                      <span className="text-[10px] text-gray-400">{account.phone}</span>
+                    </div>
+                  </div>
+                  {account.status === '启用' ? (
+                    <span className="bg-emerald-50 text-emerald-600 text-[10px] px-2 py-0.5 rounded-full border border-emerald-100 font-bold">已启用</span>
+                  ) : (
+                    <span className="bg-gray-50 text-gray-400 text-[10px] px-2 py-0.5 rounded-full border border-gray-100 font-bold">已停用</span>
+                  )}
+                </div>
+                <div className="flex items-center justify-between text-xs bg-gray-50 rounded-lg p-2">
+                  <span className="text-gray-500">角色：{account.role}</span>
+                  <span className="text-gray-400">最近登录：{account.lastLogin.split(' ')[0]}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 添加账号弹窗 */}
+      {showAddModal && (
+        <div className="absolute inset-0 bg-black/70 z-50 flex flex-col items-center justify-end sm:justify-center p-0 sm:p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-t-3xl sm:rounded-3xl w-full max-w-sm p-6 relative animate-in slide-in-from-bottom-10 sm:slide-in-from-bottom-0">
+            <div className="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-4 sm:hidden"></div>
+            <h3 className="text-lg font-extrabold text-gray-800 mb-4 text-center">添加子账号</h3>
+            <div className="space-y-3 mb-6">
+              <div>
+                <label className="text-xs text-gray-500 mb-1 block font-medium">姓名</label>
+                <input type="text" placeholder="请输入姓名" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-[#E63F59] focus:ring-1 focus:ring-[#E63F59] transition" />
+              </div>
+              <div>
+                <label className="text-xs text-gray-500 mb-1 block font-medium">手机号</label>
+                <input type="text" placeholder="请输入手机号" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-[#E63F59] focus:ring-1 focus:ring-[#E63F59] transition" />
+              </div>
+              <div>
+                <label className="text-xs text-gray-500 mb-1 block font-medium">初始密码</label>
+                <input type="text" placeholder="请设置初始密码" className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-[#E63F59] focus:ring-1 focus:ring-[#E63F59] transition" />
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <button onClick={() => setShowAddModal(false)} className="flex-1 bg-gray-100 text-gray-600 rounded-2xl py-3 font-bold active:bg-gray-200 text-sm">取消</button>
+              <button onClick={() => setShowAddModal(false)} className="flex-1 bg-[#E63F59] text-white rounded-2xl py-3 font-bold active:bg-red-700 text-sm shadow-md shadow-red-200">确认添加</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// --- 9. 核销门店：个人工作台组件 ---
 const StoreDashboard = ({ setCurrentView, currentUser, setCurrentUser, setSubAccounts }) => {
   const [showScanModal, setShowScanModal] = useState(false);
   const [verifyCode, setVerifyCode] = useState('');
@@ -881,6 +1047,34 @@ const StoreDashboard = ({ setCurrentView, currentUser, setCurrentUser, setSubAcc
             <div className="flex items-center gap-2 text-gray-800 text-sm font-bold">
               <Heart className="text-[#E63F59]" size={16} fill="currentColor" />
               关爱困难群体爱心帮帮卡活动
+            </div>
+          </div>
+        </div>
+
+        {/* 功能按钮区 */}
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          <div 
+            onClick={() => setCurrentView('STORE_VERIFY_RECORDS')}
+            className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 cursor-pointer active:scale-[0.97] transition-all flex items-center gap-3"
+          >
+            <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
+              <ClipboardList className="text-blue-500" size={20} />
+            </div>
+            <div>
+              <div className="font-bold text-gray-800 text-sm">核销记录</div>
+              <div className="text-[10px] text-gray-400">查看历史记录</div>
+            </div>
+          </div>
+          <div 
+            onClick={() => setCurrentView('STORE_SUB_ACCOUNTS')}
+            className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 cursor-pointer active:scale-[0.97] transition-all flex items-center gap-3"
+          >
+            <div className="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center flex-shrink-0">
+              <Users className="text-orange-500" size={20} />
+            </div>
+            <div>
+              <div className="font-bold text-gray-800 text-sm">子账号配置</div>
+              <div className="text-[10px] text-gray-400">管理核销人员</div>
             </div>
           </div>
         </div>
@@ -982,6 +1176,8 @@ const App = () => {
         {currentView === 'HQ_ADD_SUB' && <HQAddSubAccount setCurrentView={setCurrentView} subAccounts={subAccounts} setSubAccounts={setSubAccounts} />}
         {currentView === 'STORE_ACTIVATION' && <StoreActivation setCurrentView={setCurrentView} currentUser={currentUser} setCurrentUser={setCurrentUser} setSubAccounts={setSubAccounts} />}
         {currentView === 'STORE_DASHBOARD' && <StoreDashboard setCurrentView={setCurrentView} currentUser={currentUser} setCurrentUser={setCurrentUser} setSubAccounts={setSubAccounts} />}
+        {currentView === 'STORE_VERIFY_RECORDS' && <StoreVerifyRecords setCurrentView={setCurrentView} />}
+        {currentView === 'STORE_SUB_ACCOUNTS' && <StoreSubAccountsMgmt setCurrentView={setCurrentView} />}
       </div>
     </div>
   );
